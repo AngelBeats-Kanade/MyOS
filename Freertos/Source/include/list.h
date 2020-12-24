@@ -36,6 +36,7 @@ typedef struct xLIST List_t;
 #define listGET_END_MARKER(pxList) ((ListItem_t const*)(&((pxList)->xListEnd)))                  //获取链表的最后一个节点
 #define listLIST_IS_EMPTY(pxList) ((BaseType_t)((pxList)->uxNumberOfItems == (UBaseType_t) 0))   //判断链表是否为空
 #define listCURRENT_LIST_LENGTH(pxList) ((pxList)->uxNumberOfItems)                              //获取链表的节点数
+#define listGET_OWNER_OF_HEAD_ENTRY(pxList) ((&((pxList)->xListEnd))->pxNext->pvOwner)
 #define listGET_OWNER_OF_NEXT_ENTRY(pxTCB, pxList)                       \
 {                                                                        \
   List_t *const pxConstList = (pxList);                                  \
