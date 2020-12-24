@@ -3,7 +3,7 @@
 
 #include "portmacro.h"
 
-typedef void (*TaskFunction_t) (void *);
+typedef void (*TaskFunction_t)(void *);
 
 #define pdFALSE ((BaseType_t) 0)
 #define pdTRUE ((BaseType_t)1)

@@ -13,9 +13,9 @@
 #define portSTACK_TYPE    uint32_t
 #define portBASE_TYPE       long
 
-typedef portSTACK_TYPE  StackType_t;
-typedef long                      BaseType_t;
-typedef unsigned long      UBaseType_t;
+typedef portSTACK_TYPE StackType_t;
+typedef long BaseType_t;
+typedef unsigned long UBaseType_t;
 
 #if (configUSE_16_BIT_TICKS == 1)
 typedef uint16_t TickType_t;
@@ -55,13 +55,13 @@ portFORCE_INLINE static void vPortRaiseBASEPRI(void)
   uint32_t ulNewBASEPRI;
   __asm volatile
   (
-    "mov %0, %1       \n"
-    "msr basepri, %0 \n"
-    "isb                      \n"
-    "dsb                     \n"
-    : "=r"(ulNewBASEPRI)
-    : "i"(configMAX_SYSCALL_INTERRUPT_PRIORITY)
-    : "memory"
+  "mov %0, %1       \n"
+  "msr basepri, %0 \n"
+  "isb                      \n"
+  "dsb                     \n"
+  : "=r"(ulNewBASEPRI)
+  : "i"(configMAX_SYSCALL_INTERRUPT_PRIORITY)
+  : "memory"
   );
 }
 
@@ -70,14 +70,14 @@ portFORCE_INLINE static uint32_t ulPortRaiseBASEPRI(void)
   uint32_t ulReturn, ulNewBASEPRI;
   __asm volatile
   (
-    "mrs %0, basepri \n"
-    "mov %1, %2       \n"
-    "msr basepri, %1 \n"
-    "isb                      \n"
-    "dsb                     \n"
-    : "=r"(ulReturn), "=r"(ulNewBASEPRI)
-    : "i"(configMAX_SYSCALL_INTERRUPT_PRIORITY)
-    : "memory"
+  "mrs %0, basepri \n"
+  "mov %1, %2       \n"
+  "msr basepri, %1 \n"
+  "isb                      \n"
+  "dsb                     \n"
+  : "=r"(ulReturn), "=r"(ulNewBASEPRI)
+  : "i"(configMAX_SYSCALL_INTERRUPT_PRIORITY)
+  : "memory"
   );
   return ulReturn;
 }
@@ -86,7 +86,7 @@ portFORCE_INLINE static void vPortSetBASEPRI(uint32_t ulBASEPRI)
 {
   __asm volatile
   (
-    "msr basepri, %0" :: "r" (ulBASEPRI) : "memory"
+  "msr basepri, %0"::"r" (ulBASEPRI) : "memory"
   );
 }
 
@@ -94,7 +94,7 @@ portFORCE_INLINE static void vPortClearBASEPRIFromISR(void)
 {
   __asm volatile
   (
-    "msr basepri, %0" ::"r"(0)
+  "msr basepri, %0"::"r"(0)
   );
 }
 

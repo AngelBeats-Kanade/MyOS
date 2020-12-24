@@ -49,9 +49,13 @@ typedef struct xLIST List_t;
 }
 
 void vListInitialiseItem(ListItem_t *const pxItem);
+
 void vListInitialise(List_t *const pxList);
+
 void vListInsertEnd(List_t *const pxList, ListItem_t *const pxNewListItem);
+
 void vListInsert(List_t *const pxList, ListItem_t *const pxNewListItem);
+
 UBaseType_t uxListRemove(ListItem_t *const pxItemToRemove);
 
 #endif //LIST_H

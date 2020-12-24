@@ -14,24 +14,31 @@
 typedef void *TaskHandle_t;
 
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
+
 TaskHandle_t xTaskCreateStatic(TaskFunction_t,
-                                                    const char *const,
-                                                    const uint32_t,
-                                                    void *const,
-                                                    StackType_t *const,
-                                                    TCB_t *const);
+                               const char *const,
+                               const uint32_t,
+                               void *const,
+                               StackType_t *const,
+                               TCB_t *const);
+
 #endif
 
 static void prvInitialiseNewTask(TaskFunction_t,
-                                                    const char *const,
-                                                    const uint32_t,
-                                                    void *const,
-                                                    TaskHandle_t *const,
-                                                    TCB_t *);
+                                 const char *const,
+                                 const uint32_t,
+                                 void *const,
+                                 TaskHandle_t *const,
+                                 TCB_t *);
+
 void prvInitialiseTaskLists(void);
+
 void vTaskStartScheduler(void);
+
 void vTaskSwitchContext(void);
+
 void xTaskIncrementTick(void);
+
 void vTaskDelay(TickType_t const xTicksToDelay);
 
 #endif //TASK_H
