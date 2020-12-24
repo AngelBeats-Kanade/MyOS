@@ -5,13 +5,13 @@
 #include <stddef.h>
 #include "FreeRTOSConfig.h"
 
-#define portCHAR               char
-#define portFLOAT              float
-#define portDOUBLE           double
-#define portLONG               long
-#define portSHORT             short
+#define portCHAR          char
+#define portFLOAT         float
+#define portDOUBLE        double
+#define portLONG          long
+#define portSHORT         short
 #define portSTACK_TYPE    uint32_t
-#define portBASE_TYPE       long
+#define portBASE_TYPE     long
 
 typedef portSTACK_TYPE StackType_t;
 typedef long BaseType_t;
@@ -41,12 +41,12 @@ typedef uint32_t TickType_t;
 #define portFORCE_INLINE inline __attribute__(( always_inline ))
 #endif
 
-#define portDISABLE_INTERRUPTS()                           vPortRaiseBASEPRI()
-#define portSET_INTERRUPT_MASK_FROM_ISR()       ulPortRaiseBASEPRI()
-#define portENABLE_INTERRUPTS()                            vPortSetBASEPRI(0)
+#define portDISABLE_INTERRUPTS()             vPortRaiseBASEPRI()
+#define portSET_INTERRUPT_MASK_FROM_ISR()    ulPortRaiseBASEPRI()
+#define portENABLE_INTERRUPTS()              vPortSetBASEPRI(0)
 #define portCLEAR_INTERRUPT_MASK_FROM_ISR(x) vPortSetBASEPRI(x)
-#define portENTER_CRITICAL()                                   vPortEnterCritical()
-#define portEXIT_CRITICAL()                                       vPortExitCritical()
+#define portENTER_CRITICAL()                 vPortEnterCritical()
+#define portEXIT_CRITICAL()                  vPortExitCritical()
 
 #define portTASK_FUNCTION(vFunction, pvParameters) void vFunction(void *pvParameters)
 
@@ -97,5 +97,21 @@ portFORCE_INLINE static void vPortClearBASEPRIFromISR(void)
   "msr basepri, %0"::"r"(0)
   );
 }
+
+portFORCE_INLINE static uint8_t ucPortCountLeadingZeros(uint32_t ulBitmap)
+{
+  uint8_t ucReturn;
+  __asm volatile("clz %0, %1":"=r"(ucReturn):"r"(ulBitmap):"memory");
+  return ucReturn;
+}
+
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
+#define portRECORD_READY_PRIORITY(uxPriority, uxReadyPriorities)  (uxReadyPriorities |= (1UL << uxPriority))
+#define portRESET_READY_PRIORITY(uxPriority, uxReadyPriorities)   (uxReadyPriorities &= ~(1UL << uxPriority))
+#define portGET_HIGHEST_PRIORITY(uxTopPriority, uxReadyPriorities) uxTopPriority = (31UL - (uint32_t) ucPortCountLeadingZeros(uxReadyPriorities))
+
+void vPortEnterCritical(void);
+
+void vPortExitCritical(void);
 
 #endif //PORTMACRO_H

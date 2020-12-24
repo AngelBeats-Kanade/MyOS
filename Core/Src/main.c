@@ -1,6 +1,6 @@
 /**
   ****************************************************************************
-  * @file           : main.c
+  * @file         : main.c
   * @brief        : Main program body
   ****************************************************************************
   * @attention
@@ -67,6 +67,7 @@ int main(void)
                                    (char *) "Task1",
                                    (uint32_t) TASK1_STACK_SIZE,
                                    (void *) NULL,
+                                   (UBaseType_t) 1,
                                    (StackType_t *) Task1Stack,
                                    (TCB_t *) &Task1TCB);
   vListInsertEnd(&(pxReadyTaskLists[1]), &(((TCB_t *) (&Task1TCB))->xStateListItem));
@@ -75,6 +76,7 @@ int main(void)
                                    (char *) "Task2",
                                    (uint32_t) TASK2_STACK_SIZE,
                                    (void *) NULL,
+                                   (UBaseType_t) 2,
                                    (StackType_t *) Task2Stack,
                                    (TCB_t *) &Task2TCB);
   vListInsertEnd(&(pxReadyTaskLists[2]), &(((TCB_t *) (&Task2TCB))->xStateListItem));

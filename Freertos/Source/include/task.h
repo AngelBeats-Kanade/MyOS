@@ -6,30 +6,34 @@
 
 #define taskYIELD() portYIELD()
 
-#define taskENTER_CRITICAL()                    portENTER_CRITICAL()
+#define taskENTER_CRITICAL()           portENTER_CRITICAL()
 #define taskENTER_CRITICAL_FROM_ISR()  portSET_INTERRUPT_MASK_FROM_ISR()
-#define taskEXIT_CRITICAL()                        portEXIT_CRITICAL()
-#define taskEXIT_CRITICAL_FROM_ISR()      portCLEAR_INTERRUPT_MASK_FROM_ISR(x)
+#define taskEXIT_CRITICAL()            portEXIT_CRITICAL()
+#define taskEXIT_CRITICAL_FROM_ISR()   portCLEAR_INTERRUPT_MASK_FROM_ISR(x)
+
+#define tskIDLE_PRIORITY (UBaseType_t) 0U
 
 typedef void *TaskHandle_t;
 
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
 
-TaskHandle_t xTaskCreateStatic(TaskFunction_t,
-                               const char *const,
-                               const uint32_t,
-                               void *const,
-                               StackType_t *const,
-                               TCB_t *const);
+TaskHandle_t xTaskCreateStatic(TaskFunction_t pxTaskCode,
+                               const char *const pcName,
+                               const uint32_t ulStackDepth,
+                               void *const pvParameters,
+                               UBaseType_t uxPriority,
+                               StackType_t *const puxStackBuffer,
+                               TCB_t *const pxTaskBuffer);
 
 #endif
 
-static void prvInitialiseNewTask(TaskFunction_t,
-                                 const char *const,
-                                 const uint32_t,
-                                 void *const,
-                                 TaskHandle_t *const,
-                                 TCB_t *);
+static void prvInitialiseNewTask(TaskFunction_t pxTaskCode,
+                                 const char *const pcName,
+                                 const uint32_t ulStackDepth,
+                                 void *const pvParameters,
+                                 UBaseType_t uxPriority,
+                                 TaskHandle_t *const pxCreatedTask,
+                                 TCB_t *pxNewTCB);
 
 void prvInitialiseTaskLists(void);
 
