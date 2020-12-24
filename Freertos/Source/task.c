@@ -81,6 +81,7 @@ TaskHandle_t xTaskCreateStatic(TaskFunction_t pxTaskCode,
                          uxPriority,
                          &xReturn,
                          pxNewTCB);
+    prvAddNewTaskToReadyList(pxNewTCB);
   }
   else
   {

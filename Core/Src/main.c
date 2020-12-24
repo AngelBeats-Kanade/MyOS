@@ -70,7 +70,6 @@ int main(void)
                                    (UBaseType_t) 1,
                                    (StackType_t *) Task1Stack,
                                    (TCB_t *) &Task1TCB);
-  vListInsertEnd(&(pxReadyTaskLists[1]), &(((TCB_t *) (&Task1TCB))->xStateListItem));
 
   Task2_Handle = xTaskCreateStatic((TaskFunction_t) Task2_Entry,
                                    (char *) "Task2",
@@ -79,7 +78,6 @@ int main(void)
                                    (UBaseType_t) 2,
                                    (StackType_t *) Task2Stack,
                                    (TCB_t *) &Task2TCB);
-  vListInsertEnd(&(pxReadyTaskLists[2]), &(((TCB_t *) (&Task2TCB))->xStateListItem));
 
   vTaskStartScheduler();
 
@@ -90,20 +88,20 @@ int main(void)
 }
 
 /**
-   * @brief  Soft delay.
-   * @param count: determine how long it delay.
-   * @retval None
-   */
+  * @brief  Soft delay.
+  * @param count: determine how long it delay.
+  * @retval None
+  */
 void delay(uint32_t count)
 {
   for (; count != 0; count--);
 }
 
 /**
-   * @brief  Task1 function.
-   * @param p_arg: Pointer to Task Function.
-   * @retval None
-   */
+  * @brief Task1 function.
+  * @param p_arg: Pointer to Task Function.
+  * @retval None
+  */
 void Task1_Entry(void *p_arg)
 {
   for (;;)
@@ -118,10 +116,10 @@ void Task1_Entry(void *p_arg)
 }
 
 /**
-   * @brief  Task2 function.
-   * @param p_arg: Pointer to Task Function.
-   * @retval None
-   */
+  * @brief Task2 function.
+  * @param p_arg: Pointer to Task Function.
+  * @retval None
+  */
 void Task2_Entry(void *p_arg)
 {
   for (;;)
@@ -135,6 +133,13 @@ void Task2_Entry(void *p_arg)
   }
 }
 
+/**
+  * @brief Get the task memory.
+  * @param ppxIdleTaskTCBBuffer: Idle task TCB buffer.
+  * @param ppxIdleTaskStackBuffer: Idle task stack buffer.
+  * @param pulIdleTaskStackSize: Idle task stack size.
+  * @retval None
+  */
 void vApplicationGetIdleTaskMemory(TCB_t **ppxIdleTaskTCBBuffer,
                                    StackType_t **ppxIdleTaskStackBuffer,
                                    uint32_t *pulIdleTaskStackSize)
