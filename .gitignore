@@ -1,3 +1,5 @@
 cmake-build-debug
 .idea
-
+.gitignore
+CMakeLists.txt
+CMakeLists_b.txt
