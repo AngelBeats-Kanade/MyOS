@@ -89,7 +89,7 @@ int main(void)
 
 /**
   * @brief  Soft delay.
-  * @param count: determine how long it delay.
+  * @param  count: determine how long it delay.
   * @retval None
   */
 void delay(uint32_t count)
@@ -98,8 +98,8 @@ void delay(uint32_t count)
 }
 
 /**
-  * @brief Task1 function.
-  * @param p_arg: Pointer to Task Function.
+  * @brief  Task1 function.
+  * @param  p_arg: Pointer to Task Function.
   * @retval None
   */
 void Task1_Entry(void *p_arg)
@@ -114,8 +114,8 @@ void Task1_Entry(void *p_arg)
 }
 
 /**
-  * @brief Task2 function.
-  * @param p_arg: Pointer to Task Function.
+  * @brief  Task2 function.
+  * @param  p_arg: Pointer to Task Function.
   * @retval None
   */
 void Task2_Entry(void *p_arg)
@@ -130,10 +130,10 @@ void Task2_Entry(void *p_arg)
 }
 
 /**
-  * @brief Get the task memory.
-  * @param ppxIdleTaskTCBBuffer: Idle task TCB buffer.
-  * @param ppxIdleTaskStackBuffer: Idle task stack buffer.
-  * @param pulIdleTaskStackSize: Idle task stack size.
+  * @brief  Get the task memory.
+  * @param  ppxIdleTaskTCBBuffer: Idle task TCB buffer.
+  * @param  ppxIdleTaskStackBuffer: Idle task stack buffer.
+  * @param  pulIdleTaskStackSize: Idle task stack size.
   * @retval None
   */
 void vApplicationGetIdleTaskMemory(TCB_t **ppxIdleTaskTCBBuffer,
