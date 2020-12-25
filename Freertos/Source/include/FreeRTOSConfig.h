@@ -7,6 +7,7 @@
 #define configMAX_PRIORITIES                 5
 #define configKERNEL_INTERRUPT_PRIORITY      255
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 191
+#define configUSE_PREEMPTION                 1
 
 #define configMINIAL_STACK_SIZE ((unsigned short)128)
 #define configCPU_CLOCK_HZ      ((unsigned long)25000000)

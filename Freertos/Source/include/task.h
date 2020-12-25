@@ -41,7 +41,7 @@ void vTaskStartScheduler(void);
 
 void vTaskSwitchContext(void);
 
-void xTaskIncrementTick(void);
+BaseType_t xTaskIncrementTick(void);
 
 void vTaskDelay(TickType_t const xTicksToDelay);
 

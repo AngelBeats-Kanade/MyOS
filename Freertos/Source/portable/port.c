@@ -32,7 +32,8 @@ void vPortSetupTimerInterrupt(void);
 
 static void prvTaskExitError(void)
 {
-  for (;;){}
+  for (;;)
+  {}
 }
 
 StackType_t *pxPortInitialiseStack(StackType_t *pxTopOfStack,
@@ -135,7 +136,8 @@ void vPortEnterCritical(void)
   portDISABLE_INTERRUPTS();
   uxCriticalNesting++;
 
-  if (uxCriticalNesting == 1){}
+  if (uxCriticalNesting == 1)
+  {}
 }
 
 void vPortExitCritical(void)
@@ -148,7 +150,12 @@ void vPortExitCritical(void)
 void xPortSysTickHandler(void)
 {
   vPortRaiseBASEPRI();
-  xTaskIncrementTick();
+  {
+    if (xTaskIncrementTick() != pdFALSE)
+    {
+      taskYIELD();
+    }
+  }
   vPortClearBASEPRIFromISR();
 }
 

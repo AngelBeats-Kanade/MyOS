@@ -6,6 +6,10 @@
 #include "port.h"
 #include "projdefs.h"
 
+#ifndef configUSE_TIME_SLICING
+#define configUSE_TIME_SLICING 1
+#endif
+
 typedef struct tsTaskControlBlock {
   volatile StackType_t *pxTopOfStack;
   ListItem_t xStateListItem;

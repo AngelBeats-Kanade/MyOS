@@ -110,8 +110,6 @@ void Task1_Entry(void *p_arg)
     vTaskDelay(2);
     flag2 = 0;
     vTaskDelay(2);
-
-    taskYIELD();
   }
 }
 
@@ -128,8 +126,6 @@ void Task2_Entry(void *p_arg)
     vTaskDelay(2);
     flag2 = 0;
     vTaskDelay(2);
-
-    taskYIELD();
   }
 }
 

@@ -58,9 +58,12 @@ static void prvResetNextTaskUnblockTime(void);
   portGET_HIGHEST_PRIORITY(uxTopPriority, uxTopReadyPriority);                  \
   listGET_OWNER_OF_NEXT_ENTRY(pxCurrentTCB, &(pxReadyTaskLists[uxTopPriority]));\
 }
-#define taskRESET_READY_PRIORITY(uxPriority)               \
-{                                                          \
-  portRESET_READY_PRIORITY(uxPriority, uxTopReadyPriority);\
+#define taskRESET_READY_PRIORITY(uxPriority)                                      \
+{                                                                                 \
+  if(listCURRENT_LIST_LENGTH(&(pxReadyTaskLists[uxPriority])) == (UBaseType_t) 0) \
+  {                                                                               \
+    portRESET_READY_PRIORITY(uxPriority, uxTopReadyPriority);                     \
+  }                                                                               \
 }
 #endif
 #define prvAddTaskToReadyList(pxTCB)                    \
@@ -256,10 +259,11 @@ void vTaskDelay(TickType_t const xTicksToDelay)
   taskYIELD();
 }
 
-void xTaskIncrementTick(void)
+BaseType_t xTaskIncrementTick(void)
 {
   TCB_t *pxTCB;
   TickType_t xItemValue;
+  BaseType_t xSwitchRequired = pdFALSE;
 
   TickType_t const xConstTickCount = xTickCount + 1;
   xTickCount = xConstTickCount;
@@ -292,11 +296,27 @@ void xTaskIncrementTick(void)
         (void) uxListRemove(&(pxTCB->xStateListItem));
 
         prvAddTaskToReadyList(pxTCB);
+
+        #if (configUSE_PREEMPTION == 1)
+          {
+            if (pxTCB->uxPriority >= pxCurrentTCB->uxPriority)
+            {
+              xSwitchRequired = pdTRUE;
+            }
+          }
+        #endif
       }
     }
   }
 
-  portYIELD();
+#if ((configUSE_PREEMPTION == 1) && (configUSE_TIME_SLICING == 1))
+  {
+    if (listCURRENT_LIST_LENGTH(&(pxReadyTaskLists[pxCurrentTCB->uxPriority])) > (UBaseType_t) 1)
+    {
+      xSwitchRequired = pdTRUE;
+    }
+  }
+#endif
 }
 
 static void prvAddNewTaskToReadyList(TCB_t *pxNewTCB)
