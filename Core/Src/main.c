@@ -10,6 +10,8 @@
   *
   ****************************************************************************
   */
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
 /* Private includes -----------------------------------------------------------*/
 
 #include "gpio.h"
@@ -22,9 +24,6 @@
 
 /* Private define -------------------------------------------------------------*/
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "EndlessLoop"
-
 #define TASK1_STACK_SIZE             (unsigned short)128
 #define TASK2_STACK_SIZE             (unsigned short)128
 
@@ -33,8 +32,6 @@
 StackType_t Task1Stack[TASK1_STACK_SIZE];
 StackType_t Task2Stack[TASK2_STACK_SIZE];
 StackType_t IdleTaskStack[configMINIAL_STACK_SIZE];
-
-portCHAR flag1, flag2;
 
 extern ListItem_t pxReadyTaskLists[configMAX_PRIORITIES];
 
