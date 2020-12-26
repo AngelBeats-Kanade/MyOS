@@ -17,7 +17,6 @@ static List_t xDelayedTaskList2;
 static List_t *volatile pxDelayedTaskList;
 static List_t *volatile pxOverflowDelayedTaskList;
 
-extern portCHAR flag0;
 extern TCB_t Task1TCB;
 extern TCB_t Task2TCB;
 extern TCB_t IdleTaskTCB;
@@ -191,7 +190,6 @@ void vTaskStartScheduler(void)
 
   if (xPortStartScheduler() != pdFALSE)
   {
-    flag0 = 1;
   }
 }
 
